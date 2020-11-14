@@ -1,0 +1,13 @@
+For frontend: HTML, CSS, bootstrap, JavaScript
+Backend: Firebase (with Firestore)
+Hosted on Firebase
+https://sheep-chatroom.web.app/
+
+--------------------------------
+Dummy emails
+yoshi@test.com
+mario@test.com
+jamie@test.com
+
+all
+test123

@@ -1,0 +1,29 @@
+.navbar{
+    background-color: #498467 !important;
+}
+
+.tea-green{
+    background-color: #CFE4C9;
+}
+.current{
+    background-color: #F4D06F !important;
+}
+
+.ocean-green{
+    background-color: #498467;
+}
+
+/* .nav-username{
+    color: #CFE4C9;
+    font-weight: bold;
+    font-size: 1.2em;
+} */
+
+.username{
+    font-weight: bold;
+}
+
+.time{
+    font-size: 0.8em;
+    color: gray;
+}

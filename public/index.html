@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sheep Chatroom</title>
+</head>
+<body>
+  <!--Nav bar-->
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="img/logo.png" width="60" alt="logo">
+            Sheep Chatroom
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <!-- Login Button (Only shown if user is logged out)-->
+            <button type="button" class="btn btn-outline-light mr-3 logged-out d-none" data-toggle="modal" data-target="#LoginModal">
+                Login
+            </button>
+            <!-- Login Button Modal -->
+            <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header ocean-green text-white">
+                            <h5 class="modal-title" id="LoginModalLabel">Login</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="login">
+                                <div class="form-group">
+                                    <label for="LoginEmail">Email address</label>
+                                    <input type="email" class="form-control" id="LoginEmail" aria-describedby="emailHelp">
+                                </div>
+                                <div class="form-group">
+                                    <label for="LoginPassword">Password</label>
+                                    <input type="password" class="form-control" id="LoginPassword">
+                                </div>
+                                <button type="submit" class="btn btn-outline-light m-1 ocean-green">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signup Button (Only shown if user is logged out)-->
+            <button type="button" class="btn btn-outline-light mr-3 logged-out d-none" data-toggle="modal" data-target="#SignupModal">
+                Sign up
+            </button>
+            <!-- Signup Button Modal -->
+            <div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="SignupModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header ocean-green text-white">
+                            <h5 class="modal-title" id="SignupModalLabel">Sign up</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="signup">
+                                <div class="form-group">
+                                    <label for="SignupEmail">Email address</label>
+                                    <input type="email" class="form-control" id="SignupEmail" aria-describedby="emailHelp">
+                                </div>
+                                <div class="form-group">
+                                    <label for="SignupUsername">Username</label>
+                                    <input type="text" class="form-control" id="SignupUsername">
+                                </div>
+                                <div class="form-group">
+                                    <label for="SignupPassword">Password</label>
+                                    <input type="password" class="form-control" id="SignupPassword">
+                                </div>
+                                <button type="submit" class="btn btn-outline-light m-1 ocean-green signup-btn">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show username (Only shown if user is logged in)--->
+            <h3><span class="mr-3 logged-in d-none nav-username badge badge-light"></span></h3>
+            <!-- Logout Button (Only shown if user is logged in)-->
+            <button type="submit" class="btn btn-outline-light logout-btn logged-in d-none">
+                Log out
+            </button>
+
+        </div>
+    </nav>
+  </div>
+
+  <div class="container">
+    <!--Message shown when not logged in-->
+    <div class="tea-green text-center pb-2 logged-out d-none">
+        <h2 class="pt-2">Please login to see chats</h2>
+    </div>
+
+    <!--Chat rooms-->
+    <div class="tea-green chatrooms text-center pb-2 logged-in d-none">
+        <h2 class="pt-2">Select Chatroom</h2>
+        <button class="btn btn-outline-light ocean-green m-1 current" id="general" type="button">General</button>
+        <button class="btn btn-outline-light ocean-green m-1" id="farming" type="button">Farming</button>
+        <button class="btn btn-outline-light ocean-green m-1" id="counting" type="button">Counting</button>
+    </div>
+    
+    <!--Chat list messages-->
+    <div class="tea-green logged-in d-none">
+        <ul class="list-group chat-list"></ul>
+    </div>
+
+    <!--Send message-->
+    <form class="send-message tea-green logged-in d-none">
+        <div class="form-group">
+            <h5 class="pt-5 mb-0 ml-2">Send message</h5>
+            <div class="form-inline">
+                <input type="text" class="form-control col-9 m-1 ml-2" name="message" placeholder="type message">
+                <input type="submit" class="btn btn-outline-light m-1 current" value="submit" for="message"> 
+            </div>
+            
+        </div>
+    </form>
+
+  </div>
+
+    <!-- date-fns -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyB05ig10PGeko_sTTIXpyRwjh-ga8ywh6g",
+            authDomain: "sheep-chatroom.firebaseapp.com",
+            databaseURL: "https://sheep-chatroom.firebaseio.com",
+            projectId: "sheep-chatroom",
+            storageBucket: "sheep-chatroom.appspot.com",
+            messagingSenderId: "154686632933",
+            appId: "1:154686632933:web:06a007bafc1cb8026ab50c"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+    </script>
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+    <script src="scripts/chat.js"></script>
+    <script src="scripts/UI.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
